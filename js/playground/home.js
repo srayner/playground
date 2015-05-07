@@ -4,43 +4,40 @@
  * A 3D playground for fun!
  */
 
+// container
+var container = document.getElementById('layout-center');
+
 // Scene
 var scene = new THREE.Scene();
 
 // Camera
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 75, (window.innerWidth - 400)/ window.innerHeight, 0.1, 1000 );
 
 // Renderer
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xffffff, 1);
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+renderer.setSize( window.innerWidth - 436, window.innerHeight );
+document.getElementById('layout-center').appendChild( renderer.domElement );
 
 // Controls
-controls = new THREE.OrbitControls( camera );
+controls = new THREE.OrbitControls( camera, container );
 controls.damping = 0.2;
 controls.addEventListener( 'change', render );
            
 // World
-var geometry = new THREE.BoxGeometry( 500, 500, 500 );
+var geometry = new THREE.BoxGeometry( 100, 100, 100 );
 var material = new THREE.MeshLambertMaterial( { color: 'green' } );
 var cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
-camera.position.z = 2000;
+camera.position.z = 500;
 
 var pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.copy(camera.position); // probably not needed
 scene.add(pointLight);
-
-// dynamic texture
-var dynamicTexture = new THREEx.DynamicTexture(500,500);
-dynamicTexture.context.font = "bold "+(0.2*500)+"px Arial";
-dynamicTexture.clear('cyan');
-dynamictexture.drawText('Hello', undefined, 250, 'red');
         
 // Animation loop
 function animate() {
-    pointLight.position.set(camera.position.x, camera.position.y +3, camera.position.z);
+    pointLight.position.set(camera.position.x, camera.position.y , camera.position.z);
     requestAnimationFrame(animate);
     controls.update();
 }

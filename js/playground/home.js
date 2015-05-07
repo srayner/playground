@@ -11,7 +11,7 @@ var container = document.getElementById('layout-center');
 var scene = new THREE.Scene();
 
 // Camera
-var camera = new THREE.PerspectiveCamera( 75, (window.innerWidth - 400)/ window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 75, (window.innerWidth - 400)/ window.innerHeight, 0.1, 6000 );
 
 // Renderer
 var renderer = new THREE.WebGLRenderer();
@@ -25,11 +25,12 @@ controls.damping = 0.2;
 controls.addEventListener( 'change', render );
            
 // World
-var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+var geometry = new THREE.BoxGeometry( 100, 200, 100 );
 var material = new THREE.MeshLambertMaterial( { color: 'green' } );
 var cube = new THREE.Mesh( geometry, material );
+cube.position.y = (cube.height / 2);
 scene.add( cube );
-camera.position.z = 500;
+camera.position.z = 1500;
 
 var pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.copy(camera.position); // probably not needed
